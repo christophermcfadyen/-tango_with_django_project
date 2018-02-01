@@ -56,19 +56,29 @@ def populate():
         for p in Page.objects.filter(category=c):
             print("- {0} - {1}".format(str(c), str(p)))
 
-     def add_page(cat, title, url, views=0):
-         p = Page.objects.get_or_create(category=cat, title=title)[0]
-         p.url=url
-         p.views=views
-         p.save()
-         return p
+def add_page(cat, title, url, views=0):
+     p = Page.objects.get_or_create(category=cat, title=title)[0]
+     p.url=url
+     p.views=views
+     p.save()
+     return p
 
-     def add_cat(name):
-         c = Category.objects.get_or_create(name=name)[0]
-         c.save()
-         return c
+def add_cat(name):
+     c = Category.objects.get_or_create(name=name)[0]
+     if name == "Django":
+        c.views= 64
+        c.likes = 32
+     if name == "Python":
+        c.views= 128
+        c.likes = 64
+     if name == "Other Frameworks":
+        c.views = 32
+        c.likes = 16
+        
+     c.save()
+     return c
 
-     # Start execution here!
-     if __name__ == '__main__':
-         print("Starting Rango population script...")
-         populate()
+#Start execution here!
+if __name__ == '__main__':
+     print("Starting Rango population script...")
+     populate()
